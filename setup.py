@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="parse-hh-data",
-    version="0.1.19",
+    version="0.1.20",
     author="Arina Ageeva",
     author_email="arina.a.ageeva@gmail.com",
     description="Package for parsing data (vacancies and resumes) from site hh.ru",
@@ -17,7 +17,7 @@ setuptools.setup(
                       "random-user-agent==1.0.1",
                       "requests>=2.23.0",
                       "tqdm==4.44.1",
-                      "urllib3==1.25.8"],
+                      "urllib3==1.26.11"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
