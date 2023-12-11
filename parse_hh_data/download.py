@@ -34,26 +34,22 @@ def download(get_url):
         """
         url = get_url(*args)
         break_reasons = set() if break_reasons is None else set(break_reasons)
+        exception = None
 
         for _ in range(max_requests_number):
             try:
                 request = requests.get(url, headers={'User-Agent': USER_AGENT.get_random_user_agent()}, timeout=timeout)
                 request.raise_for_status()
-            except ConnectionError as connection_error:
-                print(f"Connection error occurred: {connection_error}", file=sys.stderr)
-            except Timeout as time_out:
-                print(f"Timeout error occurred: {time_out}", file=sys.stderr)
-            except HTTPError as http_error:
-                print(f"HTTP error occurred: {http_error}", file=sys.stderr)
-                if request.reason in break_reasons:
-                    break
+            except Exception as e:
+                print(f"Exception: {e}", file=sys.stderr)
+                exception = e
             else:
                 return request.content
-
-            print(f"A second request to the {url} will be sent in {requests_interval} seconds")
+            
             time.sleep(requests_interval)
 
-        raise HTTPError(f"Page on this {url} has not been downloaded")
+        if exception is not None:
+            raise exception
     return wrapper
 
 
